@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEventHandler, useState } from "react";
 import {
   TextField,
   Select,
@@ -10,35 +10,28 @@ import { SelectChangeEvent } from "@mui/material/Select";
 
 type CurrencyInputProps = {
   label?: string;
-  value?: number;
+  value?: number | string;
   currency: string;
   currencies: string[];
   onCurrencyChange: (currency: string) => void;
-  onValueChange: (value: number) => void;
+  onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   min?: number;
   max?: number;
+  // defaultValue?: number;
 };
 
-const CurrencyInput = ({
+const CurrencyInput: React.FC<CurrencyInputProps> = ({
   label = "Amount",
-  value = 0,
+  value = "",
   currency,
   currencies,
   onCurrencyChange,
-  onValueChange,
+  onChange,
   min = 0,
   max = 1000000,
-}: CurrencyInputProps) => {
-  const [amount, setAmount] = useState<number>(value);
+}: // defaultValue = 0,
+CurrencyInputProps) => {
   const [selectedCurrency, setSelectedCurrency] = useState<string>(currency);
-
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseFloat(e.target.value);
-    if (newValue >= min && newValue <= max) {
-      setAmount(newValue);
-      onValueChange(newValue);
-    }
-  };
 
   const handleCurrencyChange = (e: SelectChangeEvent) => {
     const newCurrency = e.target.value;
@@ -48,13 +41,12 @@ const CurrencyInput = ({
 
   return (
     <Grid container spacing={2}>
-      {/* Amount input */}
       <Grid item xs={8}>
         <TextField
           label={label}
           type="number"
-          value={amount}
-          onChange={handleAmountChange}
+          value={value}
+          onChange={onChange}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -62,6 +54,7 @@ const CurrencyInput = ({
               </InputAdornment>
             ),
           }}
+          // defaultValue={defaultValue}
           fullWidth
           inputProps={{
             min: min,
@@ -70,7 +63,6 @@ const CurrencyInput = ({
         />
       </Grid>
 
-      {/* Currency selection */}
       <Grid item xs={4}>
         <Select
           value={selectedCurrency}

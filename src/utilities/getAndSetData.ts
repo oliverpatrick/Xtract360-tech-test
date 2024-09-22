@@ -1,20 +1,20 @@
 import { assocPath } from "ramda";
-import { MyObject } from "../types/types";
+import { FormObject } from "../types/formObject";
 import objectJson from "../object.json";
-import configJson from "../configurationToImplement.json";
+// import configJson from "../configurationToImplement.json";
 
 export const setDeep = (
-  obj: MyObject,
+  obj: FormObject,
   path: string,
-  value: string
-): MyObject => {
-  return assocPath(path.split("."), value)(obj) as MyObject;
+  value: string | number | object | null
+): FormObject => {
+  return assocPath(path.split("."), value)(obj) as FormObject;
 };
 
 export const getData = () => {
-  return objectJson as MyObject;
+  return objectJson as FormObject;
 };
 
-export const getConfiguration = () => {
-  return configJson; //type this later...
-};
+// export const getConfiguration = () => {
+//   return configJson; //type this later...
+// };

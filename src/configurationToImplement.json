@@ -3,18 +3,20 @@
     "type": "textInput",
     "label": "Driver Name",
     "path": "driver.name",
-    "defaultValue": "Peter Nolan"
+    "defaultValue": "Peter Nolan",
+    "required": true
   },
   {
     "type": "textInput",
     "label": "Vehicle Regplate",
-    "path": "vehicle.regplate"
+    "path": "vehicle.regplate",
+    "required": true
   },
   {
     "type": "enumInput",
     "label": "Vehicle Type",
     "path": "vehicle.type",
-    "values": ["Car", "Van", "Motorbike"],
+    "values": ["Car", "Van", "Motorbike", "Truck"],
     "defaultValue": "Car"
   },
   {

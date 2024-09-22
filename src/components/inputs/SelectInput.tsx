@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   FormControl,
   InputLabel,
@@ -11,30 +10,41 @@ import {
 type SelectMenuProps = {
   label?: string;
   value?: string;
-  onValueChange: (value: string) => void;
+  onChange: (event: SelectChangeEvent<string>) => void;
   options: string[];
+  defaultValue: string;
 };
 
-const SelectMenu = ({
+/**
+ * Select menu component
+ *
+ * @component
+ * @param {SelectMenuProps} SelectMenuProps Type
+ * @param {string} [label="Select"]
+ * @param {string} [value=""]
+ * @param {(value: string) => void} onValueChange
+ * @param {string[]} options
+ * @param {string} defaultValue
+ * @returns {React.FC}
+ */
+const SelectMenu: React.FC<SelectMenuProps> = ({
   label = "Select",
   value = "",
-  onValueChange,
+  onChange,
   options,
+  defaultValue,
 }: SelectMenuProps) => {
-  const [selectedValue, setSelectedValue] = useState<string>(value);
-
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    const newValue = event.target.value;
-    setSelectedValue(newValue);
-    onValueChange(newValue);
-  };
-
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <FormControl fullWidth>
           <InputLabel>{label}</InputLabel>
-          <Select label={label} value={selectedValue} onChange={handleChange}>
+          <Select
+            label={label}
+            value={value}
+            onChange={onChange}
+            defaultValue={defaultValue}
+          >
             {options.map((option, index) => (
               <MenuItem key={index} value={option}>
                 {option}
